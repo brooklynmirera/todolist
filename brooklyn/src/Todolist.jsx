@@ -1,36 +1,59 @@
-import React from 'react';
+
 import React, { useState } from 'react';
 
-const [todoList, setTodoList] = useState([]);
-
-const [newTodoList, setNewTodoList] = useState("")
-
-
-
 function Todolist() {
+
+const [tasks, setTasks] = useState(["cleanshoes","clean house","go to the gym"]);
+const [task, setNewTask] = useState("")
+
+function AddTask(){
+     
+    if(task.trim() !==""){
+        setTasks([...tasks,task])
+    }
+     setNewTask("")
+  }
+
+ function removeTask(indexToRemove) {
+  setTasks(tasks.filter((_, index) => index !== indexToRemove));
+}
+console.log(removeTask)
+
   return (
     <div>
       <h1>My Todo List</h1>
+       
+       <input 
+       type="text" 
+       value ={task}
+       placeholder="Enter something ..."
+       onChange={(e)=>setNewTask(e.target.value)} />
+
+        <button 
+        onClick={AddTask}>Add</button>
+        <div>
+          <ol>
+           {tasks.map((task,index) =>(
+            <li key={index}>
+                <span>{task}</span>
+                <button onClick={removeTask}>Delete</button>
+                <button>Up</button>
+                <button>Down</button>
+            </li>
+            
+           ))}
+          </ol>
+        </div>
 
       <div>
-        <input type="text"  />
-        <button onclick={addTodoList}>Add</button>
-        <ol>
-            {todoList.map((todoList,index)=>(
-                <li key={index}>{todoList}</li>
-            ))}
-        </ol>
+       
     </div>
     </div>
     
   );
 
-function addTodoList(){
 
-  }
-function removeTodoList(){
 
-}
 }
 
 export default Todolist;
